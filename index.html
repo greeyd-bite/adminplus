@@ -5,141 +5,171 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AdminPlus - Sistema Administrativo</title>
     <style>
+        /* Estilos generales */
         body {
             margin: 0;
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(#000000, #1a1a1a);
-            color: #fff;
-            overflow-x: hidden;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
         }
-        nav {
-            background-color: #222;
-            display: flex;
-            justify-content: center;
-            padding: 1em;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        nav a {
-            color: #fff;
-            margin: 0 15px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: color 0.3s;
-        }
-        nav a:hover {
-            color: #9b59b6;
-        }
-        section {
-            padding: 80px 20px;
-            text-align: center;
-            animation: fadeIn 2s ease-in;
-        }
-        h2 {
-            font-size: 2em;
-            margin-bottom: 20px;
-            color: #9b59b6;
-        }
-        p {
-            font-size: 1.1em;
-            margin-bottom: 20px;
-        }
-        .button {
-            background-color: #9b59b6;
+
+        /* Encabezado */
+        header {
+            background-color: #2c3e50;
             color: white;
-            padding: 12px 25px;
-            text-decoration: none;
-            border-radius: 25px;
-            transition: background 0.3s;
-        }
-        .button:hover {
-            background-color: #8e44ad;
-        }
-        footer {
-            background-color: #111;
-            padding: 20px;
+            padding: 20px 0;
             text-align: center;
-            font-size: 0.9em;
-            margin-top: 40px;
         }
-        /* Animaciones */
-        @keyframes fadeIn {
-            from {opacity: 0;}
-            to {opacity: 1;}
+
+        /* Navegación */
+        nav {
+            background-color: #34495e;
+            overflow: hidden;
+        }
+
+        nav a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        nav a:hover {
+            background-color: #1abc9c;
+            color: white;
+        }
+
+        /* Secciones */
+        section {
+            padding: 60px 20px;
+        }
+
+        section:nth-child(even) {
+            background-color: #ecf0f1;
+        }
+
+        section h2 {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        /* Formulario de contacto */
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        form input, form textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        form button {
+            background-color: #1abc9c;
+            color: white;
+            padding: 14px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        form button:hover {
+            background-color: #16a085;
+        }
+
+        /* Pie de página */
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        /* Responsivo */
+        @media (max-width: 600px) {
+            nav a {
+                float: none;
+                width: 100%;
+            }
         }
     </style>
 </head>
 <body>
 
+    <!-- Encabezado -->
+    <header>
+        <h1>AdminPlus</h1>
+        <p>Sistema Administrativo</p>
+    </header>
+
+    <!-- Navegación -->
     <nav>
-        <a href="#declaracion">Declaración Electrónica</a>
-        <a href="#personal">Auxiliar de Personal</a>
-        <a href="#nomina">Nómina</a>
-        <a href="#ajuste">Ajuste por Inflación</a>
-        <a href="#iva-renta">IVA y Renta</a>
-        <a href="#contabilidad">Contabilidad</a>
-        <a href="#administrativo">Administrativo</a>
-        <a href="#humana">Gestión Humana</a>
-        <a href="#ventas">Gestión de Ventas</a>
+        <a href="#inicio">Inicio</a>
+        <a href="#mision">Misión</a>
+        <a href="#vision">Visión</a>
+        <a href="#objetivos">Objetivos</a>
+        <a href="#modulos">Módulos</a>
+        <a href="#contacto">Contacto</a>
     </nav>
 
-    <section id="declaracion">
-        <h2>Declaración Electrónica</h2>
-        <p>Automatiza y gestiona tus declaraciones tributarias de forma segura y rápida.</p>
-        <a href="#" class="button">Entrar al Módulo</a>
+    <!-- Sección Inicio -->
+    <section id="inicio">
+        <h2>Bienvenido a AdminPlus</h2>
+        <p>AdminPlus es un sistema administrativo diseñado para optimizar la gestión de procesos clave en tu organización.</p>
     </section>
 
-    <section id="personal">
-        <h2>Auxiliar de Personal</h2>
-        <p>Gestiona contratos, novedades y personal de tu empresa eficientemente.</p>
-        <a href="#" class="button">Entrar al Módulo</a>
+    <!-- Sección Misión -->
+    <section id="mision">
+        <h2>Misión</h2>
+        <p>Nuestra misión es proporcionar soluciones tecnológicas eficientes que mejoren la administración y operación de las instituciones.</p>
     </section>
 
-    <section id="nomina">
-        <h2>Nómina</h2>
-        <p>Calcula salarios, liquidaciones y genera reportes de nómina fácilmente.</p>
-        <a href="#" class="button">Entrar al Módulo</a>
+    <!-- Sección Visión -->
+    <section id="vision">
+        <h2>Visión</h2>
+        <p>Ser líderes en el desarrollo de sistemas administrativos que impulsen la transformación digital en las organizaciones.</p>
     </section>
 
-    <section id="ajuste">
-        <h2>Ajuste por Inflación</h2>
-        <p>Aplica ajustes contables automáticos para cumplir normas fiscales.</p>
-        <a href="#" class="button">Entrar al Módulo</a>
+    <!-- Sección Objetivos -->
+    <section id="objetivos">
+        <h2>Objetivos</h2>
+        <ul>
+            <li>Automatizar procesos administrativos.</li>
+            <li>Mejorar la eficiencia operativa.</li>
+            <li>Facilitar la toma de decisiones mediante reportes precisos.</li>
+        </ul>
     </section>
 
-    <section id="iva-renta">
-        <h2>IVA y Renta</h2>
-        <p>Calcula, gestiona y presenta tus impuestos de IVA y Renta sin errores.</p>
-        <a href="#" class="button">Entrar al Módulo</a>
+    <!-- Sección Módulos -->
+    <section id="modulos">
+        <h2>Módulos</h2>
+        <ul>
+            <li>Gestión de Usuarios</li>
+            <li>Control de Inventario</li>
+            <li>Reportes y Estadísticas</li>
+            <li>Configuración del Sistema</li>
+        </ul>
     </section>
 
-    <section id="contabilidad">
-        <h2>Contabilidad</h2>
-        <p>Registra, organiza y consulta toda la contabilidad empresarial.</p>
-        <a href="#" class="button">Entrar al Módulo</a>
+    <!-- Sección Contacto -->
+    <section id="contacto">
+        <h2>Contacto</h2>
+        <form action="https://formspree.io/f/your-form-id" method="POST">
+            <input type="text" name="nombre" placeholder="Tu nombre" required>
+            <input type="email" name="email" placeholder="Tu correo electrónico" required>
+            <textarea name="mensaje" rows="5" placeholder="Tu mensaje" required></textarea>
+            <button type="submit">Enviar</button>
+        </form>
     </section>
 
-    <section id="administrativo">
-        <h2>Administrativo</h2>
-        <p>Administra procesos internos y mejora la operatividad de tu empresa.</p>
-        <a href="#" class="button">Entrar al Módulo</a>
-    </section>
-
-    <section id="humana">
-        <h2>Gestión Humana</h2>
-        <p>Desarrolla el talento humano y optimiza procesos de recursos humanos.</p>
-        <a href="#" class="button">Entrar al Módulo</a>
-    </section>
-
-    <section id="ventas">
-        <h2>Gestión de Ventas</h2>
-        <p>Controla tus ventas, genera facturas y reportes en tiempo real.</p>
-        <a href="#" class="button">Entrar al Módulo</a>
-    </section>
-
+    <!-- Pie de página -->
     <footer>
-        © 2025 AdminPlus - Sistema Administrativo. Todos los derechos reservados.
+        <p>&copy; 2025 AdminPlus. Todos los derechos reservados.</p>
     </footer>
 
 </body>
