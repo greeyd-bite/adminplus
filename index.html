@@ -3,174 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AdminPlus - Sistema Administrativo</title>
-    <style>
-        /* Estilos generales */
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            color: #333;
-        }
-
-        /* Encabezado */
-        header {
-            background-color: #2c3e50;
-            color: white;
-            padding: 20px 0;
-            text-align: center;
-        }
-
-        /* Navegación */
-        nav {
-            background-color: #34495e;
-            overflow: hidden;
-        }
-
-        nav a {
-            float: left;
-            display: block;
-            color: white;
-            text-align: center;
-            padding: 14px 16px;
-            text-decoration: none;
-        }
-
-        nav a:hover {
-            background-color: #1abc9c;
-            color: white;
-        }
-
-        /* Secciones */
-        section {
-            padding: 60px 20px;
-        }
-
-        section:nth-child(even) {
-            background-color: #ecf0f1;
-        }
-
-        section h2 {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
-        /* Formulario de contacto */
-        form {
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        form input, form textarea {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 20px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-
-        form button {
-            background-color: #1abc9c;
-            color: white;
-            padding: 14px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        form button:hover {
-            background-color: #16a085;
-        }
-
-        /* Pie de página */
-        footer {
-            background-color: #2c3e50;
-            color: white;
-            text-align: center;
-            padding: 20px 0;
-        }
-
-        /* Responsivo */
-        @media (max-width: 600px) {
-            nav a {
-                float: none;
-                width: 100%;
-            }
-        }
-    </style>
+    <title>AdminPlus</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-    <!-- Encabezado -->
     <header>
-        <h1>AdminPlus</h1>
-        <p>Sistema Administrativo</p>
+        <nav>
+            <ul>
+                <li><a href="#">Inicio</a></li>
+                <li><a href="#">Módulos</a></li>
+                <li><a href="#">Objetivos</a></li>
+                <li><a href="#">Contacto</a></li>
+            </ul>
+        </nav>
     </header>
-
-    <!-- Navegación -->
-    <nav>
-        <a href="#inicio">Inicio</a>
-        <a href="#mision">Misión</a>
-        <a href="#vision">Visión</a>
-        <a href="#objetivos">Objetivos</a>
-        <a href="#modulos">Módulos</a>
-        <a href="#contacto">Contacto</a>
-    </nav>
-
-    <!-- Sección Inicio -->
-    <section id="inicio">
-        <h2>Bienvenido a AdminPlus</h2>
-        <p>AdminPlus es un sistema administrativo diseñado para optimizar la gestión de procesos clave en tu organización.</p>
+    <section class="main-content">
+        <h1>DESCÚBRELO</h1>
+        <div class="modules">
+            <div class="module-card">
+                <img src="images/module1.jpg" alt="Módulo 1">
+                <h2>Contabilidad</h2>
+                <p>Gestiona todos tus registros contables de manera eficiente.</p>
+                <button>Ver más</button>
+            </div>
+            <!-- Repite la estructura para otros módulos -->
+        </div>
     </section>
-
-    <!-- Sección Misión -->
-    <section id="mision">
-        <h2>Misión</h2>
-        <p>Nuestra misión es proporcionar soluciones tecnológicas eficientes que mejoren la administración y operación de las instituciones.</p>
-    </section>
-
-    <!-- Sección Visión -->
-    <section id="vision">
-        <h2>Visión</h2>
-        <p>Ser líderes en el desarrollo de sistemas administrativos que impulsen la transformación digital en las organizaciones.</p>
-    </section>
-
-    <!-- Sección Objetivos -->
-    <section id="objetivos">
-        <h2>Objetivos</h2>
-        <ul>
-            <li>Automatizar procesos administrativos.</li>
-            <li>Mejorar la eficiencia operativa.</li>
-            <li>Facilitar la toma de decisiones mediante reportes precisos.</li>
-        </ul>
-    </section>
-
-    <!-- Sección Módulos -->
-    <section id="modulos">
-        <h2>Módulos</h2>
-        <ul>
-            <li>Gestión de Usuarios</li>
-            <li>Control de Inventario</li>
-            <li>Reportes y Estadísticas</li>
-            <li>Configuración del Sistema</li>
-        </ul>
-    </section>
-
-    <!-- Sección Contacto -->
-    <section id="contacto">
-        <h2>Contacto</h2>
-        <form action="https://formspree.io/f/your-form-id" method="POST">
-            <input type="text" name="nombre" placeholder="Tu nombre" required>
-            <input type="email" name="email" placeholder="Tu correo electrónico" required>
-            <textarea name="mensaje" rows="5" placeholder="Tu mensaje" required></textarea>
-            <button type="submit">Enviar</button>
-        </form>
-    </section>
-
-    <!-- Pie de página -->
     <footer>
         <p>&copy; 2025 AdminPlus. Todos los derechos reservados.</p>
     </footer>
-
+    <script src="script.js"></script>
 </body>
 </html>
