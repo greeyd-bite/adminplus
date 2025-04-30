@@ -1,37 +1,196 @@
-<!DOCTYPE html>
+!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AdminPlus</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Caja Registradora AdminPlus</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background-color: #f4f4f4; }
+        input, select, button { margin: 5px; padding: 8px; }
+        ul { list-style-type: none; padding: 0; }
+        li { background: #e0e0e0; margin-bottom: 5px; padding: 10px; border-radius: 5px; }
+        #calculadora { display: none; margin-top: 20px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ccc; padding: 10px; text-align: left; }
+        th { background-color: #ddd; }
+    </style>
 </head>
 <body>
-    <header>
-        <nav>
-            <ul>
-                <li><a href="#">Inicio</a></li>
-                <li><a href="#">Módulos</a></li>
-                <li><a href="#">Objetivos</a></li>
-                <li><a href="#">Contacto</a></li>
-            </ul>
-        </nav>
-    </header>
-    <section class="main-content">
-        <h1>DESCÚBRELO</h1>
-        <div class="modules">
-            <div class="module-card">
-                <img src="images/module1.jpg" alt="Módulo 1">
-                <h2>Contabilidad</h2>
-                <p>Gestiona todos tus registros contables de manera eficiente.</p>
-                <button>Ver más</button>
-            </div>
-            <!-- Repite la estructura para otros módulos -->
-        </div>
-    </section>
-    <footer>
-        <p>&copy; 2025 AdminPlus. Todos los derechos reservados.</p>
-    </footer>
-    <script src="script.js"></script>
+    <h1>Caja Registradora AdminPlus</h1>
+
+    <label>Producto: <input type="text" id="nombreProducto"></label>
+    <label>Precio: <input type="number" id="precioProducto" step="0.01"></label>
+    <label>Cantidad: <input type="number" id="cantidadProducto" value="1"></label>
+    <label>Descuento (%): <input type="number" id="descuentoProducto" value="0"></label>
+    <label>IVA (%): <input type="number" id="ivaProducto" value="19"></label>
+    <button onclick="agregarProducto()">Agregar</button>
+
+    <h2>Buscar Producto</h2>
+    <input type="text" id="searchInput" placeholder="Buscar...">
+
+    <h2>Lista de Productos</h2>
+    <ul id="listaProductos"></ul>
+
+    <h3>Moneda: 
+        <select id="monedaSeleccionada">
+            <option value="COP">COP</option>
+            <option value="USD">USD</option>
+            <option value="EUR">EUR</option>
+        </select>
+    </h3>
+    <p>IVA: <span id="ivaValor">0.00</span></p>
+    <p>Total: <span id="total">0.00</span></p>
+
+    <button onclick="imprimirRecibo()">Imprimir Recibo</button>
+    <button onclick="reiniciarCaja()">Reiniciar</button>
+    <button onclick="mostrarHistorial()">Mostrar Historial</button>
+    <button id="toggleCalculadora" onclick="alternarCalculadora()">Mostrar Calculadora</button>
+
+    <div id="calculadora">
+        <iframe src="https://www.desmos.com/scientific?lang=es" width="100%" height="400"></iframe>
+    </div>
+
+    <h2>Historial de Ventas</h2>
+    <table id="tablaHistorial">
+        <thead>
+            <tr><th>Fecha</th><th>Productos</th><th>IVA</th><th>Total</th><th>Método</th></tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <script>
+        let productos = [];
+        let total = 0;
+
+        const searchInput = document.getElementById('searchInput');
+        const listaProductos = document.getElementById('listaProductos');
+
+        function agregarProducto() {
+            const nombre = document.getElementById("nombreProducto").value.trim();
+            const precio = parseFloat(document.getElementById("precioProducto").value);
+            const cantidad = parseInt(document.getElementById("cantidadProducto").value) || 1;
+            const descuento = parseFloat(document.getElementById("descuentoProducto").value) || 0;
+            const ivaTarifa = parseFloat(document.getElementById("ivaProducto").value);
+
+            if (nombre && !isNaN(precio) && cantidad > 0) {
+                const subtotalSinDescuento = precio * cantidad;
+                const subtotal = subtotalSinDescuento - (subtotalSinDescuento * (descuento / 100));
+                const valorIva = subtotal * (ivaTarifa / 100);
+                const totalProducto = subtotal + valorIva;
+
+                productos.push({ nombre, cantidad, descuento, subtotal, valorIva, totalProducto, ivaTarifa });
+                total += subtotal;
+
+                const li = document.createElement("li");
+                li.textContent = `${nombre} x${cantidad} (desc. ${descuento}% | IVA ${ivaTarifa}%): $${totalProducto.toFixed(2)}`;
+                document.getElementById("listaProductos").appendChild(li);
+
+                actualizarTotales();
+
+                document.getElementById("nombreProducto").value = "";
+                document.getElementById("precioProducto").value = "";
+                document.getElementById("cantidadProducto").value = "1";
+                document.getElementById("descuentoProducto").value = "0";
+                document.getElementById("ivaProducto").value = "19";
+            } else {
+                alert("Por favor, ingresa datos válidos.");
+            }
+        }
+
+        function actualizarLista() {
+            listaProductos.innerHTML = '';
+            const term = searchInput.value.trim().toLowerCase();
+            const filtrados = productos.filter(p => p.nombre.toLowerCase().includes(term));
+            filtrados.forEach(p => {
+                const li = document.createElement("li");
+                li.textContent = `${p.nombre} x${p.cantidad} (desc. ${p.descuento}%): $${p.subtotal.toFixed(2)}`;
+                listaProductos.appendChild(li);
+            });
+        }
+
+        const tasasCambio = { COP: 1, USD: 0.00025, EUR: 0.00023 };
+
+        function actualizarTotales() {
+            const moneda = document.getElementById("monedaSeleccionada").value;
+            const tasa = tasasCambio[moneda];
+            const iva = total * 0.19;
+            const totalConIva = total + iva;
+
+            document.getElementById("ivaValor").textContent = (iva * tasa).toFixed(2) + ' ' + moneda;
+            document.getElementById("total").textContent = (totalConIva * tasa).toFixed(2) + ' ' + moneda;
+        }
+
+        function guardarEnHistorial(recibo, productos, iva, totalConIva, metodo) {
+            const historial = JSON.parse(localStorage.getItem("historialVentas")) || [];
+            historial.push({
+                fecha: new Date().toLocaleString(),
+                productos: productos.map(p => `${p.nombre} x${p.cantidad}`),
+                iva: iva.toFixed(2),
+                total: totalConIva.toFixed(2),
+                metodo
+            });
+            localStorage.setItem("historialVentas", JSON.stringify(historial));
+        }
+
+        function mostrarHistorial() {
+            const tabla = document.getElementById("tablaHistorial").getElementsByTagName("tbody")[0];
+            tabla.innerHTML = "";
+            const historial = JSON.parse(localStorage.getItem("historialVentas")) || [];
+            historial.forEach(venta => {
+                const fila = tabla.insertRow();
+                fila.innerHTML = `
+                    <td>${venta.fecha}</td>
+                    <td>${venta.productos.join("<br>")}</td>
+                    <td>$${venta.iva}</td>
+                    <td>$${venta.total}</td>
+                    <td>${venta.metodo || 'N/A'}</td>
+                `;
+            });
+        }
+
+        function imprimirRecibo() {
+            let recibo = "RECIBO DE COMPRA\\n\\n";
+            productos.forEach(p => {
+                recibo += `${p.nombre} x${p.cantidad} (desc. ${p.descuento}%): $${p.subtotal.toFixed(2)}\\n`;
+            });
+            const moneda = document.getElementById("monedaSeleccionada").value;
+            const tasa = tasasCambio[moneda];
+            const iva = total * 0.19;
+            const totalConIva = total + iva;
+            const metodo = prompt("Método de pago:", "Efectivo");
+
+            recibo += `\\nIVA (19%): ${(iva * tasa).toFixed(2)} ${moneda}\\n`;
+            recibo += `TOTAL: ${(totalConIva * tasa).toFixed(2)} ${moneda}\\n`;
+            recibo += `Método de pago: ${metodo}\\n`;
+
+            const win = window.open('', '_blank');
+            win.document.write(`<pre>${recibo}</pre>`);
+            guardarEnHistorial(recibo, productos, iva, totalConIva, metodo);
+            win.print();
+        }
+
+        function reiniciarCaja() {
+            productos = [];
+            total = 0;
+            document.getElementById("listaProductos").innerHTML = "";
+            document.getElementById("ivaValor").textContent = "0.00";
+            document.getElementById("total").textContent = "0.00";
+            searchInput.value = '';
+            actualizarLista();
+        }
+
+        searchInput.addEventListener('input', actualizarLista);
+
+        function alternarCalculadora() {
+            const calculadora = document.getElementById("calculadora");
+            calculadora.style.display = (calculadora.style.display === "none" || calculadora.style.display === "") ? "block" : "none";
+        }
+    </script>
 </body>
 </html>
+"""
+
+file_path = "/mnt/data/caja_registradora_adminplus.html"
+with open(file_path, "w", encoding="utf-8") as f:
+    f.write(html_code)
+
+file_path
