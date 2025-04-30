@@ -1,61 +1,277 @@
+/* Fondo degradado y estrellas animadas */
 body {
     font-family: Arial, sans-serif;
-    background-color: #121212;
-    color: #fff;
     margin: 0;
     padding: 0;
+    background: linear-gradient(to bottom, #000000, #333333);
+    color: white;
+    min-height: 100vh;
+    overflow-x: hidden;
 }
 
+    body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(purple 1px, transparent 1px), radial-gradient(white 1px, transparent 1px);
+        background-size: 50px 50px, 100px 100px;
+        background-position: 0 0, 25px 25px;
+        animation: starsMove 100s linear infinite;
+        z-index: -1;
+        opacity: 0.3;
+    }
+
+@keyframes starsMove {
+    0% {
+        background-position: 0 0, 25px 25px;
+    }
+
+    100% {
+        background-position: 10000px 10000px, 5000px 5000px;
+    }
+}
+
+/* Animaciones */
+.fade-in {
+    opacity: 0;
+    animation: fadeInAnimation 2s ease-in forwards;
+}
+
+@keyframes fadeInAnimation {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Scroll suave */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Cabecera */
 header {
-    background-color: #333;
-    padding: 10px 0;
-}
-
-nav ul {
-    display: flex;
-    justify-content: center;
-}
-
-nav ul li {
-    list-style: none;
-    margin: 0 20px;
-}
-
-nav ul li a {
-    color: #fff;
-    text-decoration: none;
-    font-size: 18px;
-}
-
-.main-content {
-    text-align: center;
-    padding: 50px 0;
-}
-
-.module-card {
-    background-color: #1e1e1e;
-    border-radius: 10px;
-    margin: 20px;
+    background-color: rebeccapurple;
+    color: white;
     padding: 20px;
     text-align: center;
 }
 
-.module-card img {
-    width: 100%;
-    height: auto;
+/* Navegación */
+nav a {
+    margin: 0 15px;
+    color: #00ffff;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+    nav a:hover {
+        color: #ff00ff;
+    }
+
+/* Secciones */
+section {
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.5);
+    margin: 10px;
     border-radius: 10px;
 }
 
-button {
-    background-color: #6200ea;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 10px;
+/* Caja Registradora */
+#registradora {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: white;
+    color: rebeccapurple;
+    border-radius: 10px;
+    box-sizing: border-box;
 }
 
-button:hover {
-    background-color: #3700b3;
+    #registradora > div {
+        width: 48%; /* Asignamos un ancho para que los elementos se alineen */
+        margin-bottom: 20px;
+    }
+
+    #registradora input,
+    #registradora select,
+    #registradora button {
+        width: 100%;
+        font-size: 16px;
+        margin: 10px 0;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+
+    #registradora button {
+        background-color: #6200ea;
+        color: white;
+        border: none;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+        #registradora button:hover {
+            background-color: #ff00ff;
+        }
+
+    #registradora ul {
+        list-style: none;
+        padding: 0;
+        margin-top: 20px;
+        text-align: left;
+    }
+
+    #registradora h3 {
+        margin-top: 20px;
+    }
+
+/* Ajustes responsive */
+@media (max-width: 768px) {
+    #registradora {
+        flex-direction: column; /* Los elementos se apilan en una sola columna */
+        padding: 20px;
+    }
+
+        #registradora > div {
+            width: 100%; /* Ocupa todo el espacio disponible */
+        }
 }
+/* Estilos para los totales y IVA */
+#totales {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+    #totales h3 {
+        margin: 5px 0;
+    }
+
+/* Calculadora */
+.calculadora {
+    background-color: white;
+    color: rebeccapurple;
+    padding: 20px;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 400px;
+    margin: 40px auto;
+    text-align: center;
+}
+
+    .calculadora input {
+        width: 90%;
+        font-size: 24px;
+        margin-bottom: 10px;
+        text-align: right;
+        background: black;
+        color: greenyellow;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+    }
+
+    .calculadora .botones button {
+        width: 60px;
+        height: 40px;
+        margin: 5px;
+        font-size: 18px;
+        background-color: #444;
+        color: greenyellow;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+        .calculadora .botones button:hover {
+            background-color: #6200ea;
+        }
+
+/* Estilos responsive */
+@media (max-width: 768px) {
+    #registradora {
+        grid-template-columns: 1fr;
+        padding: 20px;
+    }
+
+    .calculadora {
+        max-width: 90%;
+        margin: 20px auto;
+    }
+}
+
+/* Footer animado */
+footer {
+    background-color: #111;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    margin-top: 20px;
+    border-top: 1px solid #444;
+    animation: footerGlow 4s ease-in-out infinite alternate;
+}
+
+@keyframes footerGlow {
+    from {
+        box-shadow: 0 0 10px #00ffff;
+    }
+
+    to {
+        box-shadow: 0 0 30px #00ffff;
+    }
+}
+
+/* Texto parpadeando */
+.blink {
+    animation: blinkAnimation 1.5s infinite;
+}
+
+@keyframes blinkAnimation {
+    0%, 100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+}
+
+<style >
+.boton-flotante {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    color: white;
+    border: none;
+    padding: 15px 18px;
+    border-radius: 50%;
+    font-size: 20px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.boton-flotante:hover {
+    background: linear-gradient(135deg, #8e2de2, #4a00e0);
+    transform: scale(1.1);
+}
+
+</style >
